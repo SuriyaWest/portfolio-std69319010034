@@ -4,92 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Portfolio Demo</title>
-
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <title>Portfolio Demo - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
 
     <!-- ================= HEADER ================= -->
-
     <header>
-
         <h1>Suriya</h1>
-
         <p>Web Developer | UI Designer | Student</p>
-
     </header>
 
     <!-- ================= NAVIGATION ================= -->
-
     <nav>
-
         <ul>
-
             <li><a href="index.html">Home</a></li>
-
             <li><a href="about.html">About</a></li>
-
             <li><a href="skills.html">Skills</a></li>
-
             <li><a href="gallery.html">Gallery</a></li>
-
             <li><a href="contact.html">Contact</a></li>
-
             <li><a href="other.html">อื่นๆ</a></li>
-   
         </ul>
-
     </nav>
 
     <!-- ================= MAIN ================= -->
-
     <main>
-
-        <section>
-            <h2>Quick Links</h2>
-
-            <ul>
-
-                <li><a href="about.html">About Me</a></li>
-
-                <li><a href="skills.html">My Skills</a></li>
-
-                <li><a href="gallery.html">Gallery</a></li>
-
-                <li><a href="contact.html">Contact Me</a></li>
-
-                <li><a href="mailto:s69319010034@kktech.ac.th">Send Email</a></li>
-
-            </ul>
-        </section>
-            <h2>youtube</h2>
+        <!-- Section 1: Hero Welcome -->
+        <section class="hero-section">
+            <h2>Welcome to My Portfolio</h2>
             <p>
-                วิดีโอตัวอย่าง
+                ยินดีต้อนรับเข้าสู่เว็บไซต์พอร์ตโฟลิโอของผม โครงการนี้พัฒนาขึ้นในรายวิชาการพัฒนาเว็บไซต์ (Website Development) 
+                แสดงผลงาน ทักษะความสามารถ และช่องทางการติดต่อครับ
             </p>
-            <iframe width="1053" 
-            height="592" 
-            src="https://www.youtube.com/embed/ifN91YvHj7g?list=RDifN91YvHj7g" 
-            title="Deftones  Risk (Official Visualizer)" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <section>   
+        </section>
 
+        <!-- Section 2: Quick Links (Cards) -->
+        <section class="quick-links-section">
+            <h3>Quick Links</h3>
+            <div class="quick-links-grid">
+                <a href="about.html" class="quick-card">
+                    <span class="card-icon">👤</span>
+                    <h4>About Me</h4>
+                    <p>ประวัติและข้อมูลส่วนตัว</p>
+                </a>
+                <a href="skills.html" class="quick-card">
+                    <span class="card-icon">⚡</span>
+                    <h4>My Skills</h4>
+                    <p>ทักษะการเขียนโค้ดและดีไซน์</p>
+                </a>
+                <a href="gallery.html" class="quick-card">
+                    <span class="card-icon">🖼️</span>
+                    <h4>Gallery</h4>
+                    <p>รวบรวมผลงานและกิจกรรม</p>
+                </a>
+                <a href="contact.html" class="quick-card">
+                    <span class="card-icon">📬</span>
+                    <h4>Contact Me</h4>
+                    <p>ส่งข้อความติดต่อผมได้ที่นี่</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 3: Featured Video (Deftones - Risk) -->
+        <section class="video-card-section">
+            <div class="video-header">
+                <h3>🎬 Featured Music / Video</h3>
+                <p>วิดีโอแนะนำที่ชื่นชอบ</p>
+            </div>
+            
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.youtube.com/embed/ifN91YvHj7g?list=RDifN91YvHj7g" 
+                    title="Deftones - Risk (Official Visualizer)" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
     </main>
 
     <!-- ================= FOOTER ================= -->
-
     <footer>
-
-        <p>
-
-            © 2026 Portfolio Demo
-
-        </p>
-
+        <p>© 2026 Portfolio Demo</p>
     </footer>
 
     <script src="js/script.js"></script>
