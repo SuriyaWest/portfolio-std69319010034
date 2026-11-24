@@ -12,6 +12,11 @@
     // แนะนำไฟล์ .png พื้นหลังโปร่งใส
     var CUTIN_IMAGE = '';
 
+    // ภาพพื้นหลังหน้าแรก (เต็มจอ)
+    // วางไฟล์ภาพของคุณไว้ที่ images/home-bg.gif ได้เลย (หรือเปลี่ยนชื่อ/นามสกุลตรงนี้ให้ตรงกับไฟล์)
+    // ถ้าไม่มีไฟล์ หน้าแรกจะใช้ฉากใต้น้ำที่วาดด้วย CSS แทน
+    var HOME_BG_IMAGE = 'images/home-bg.gif';
+
     // ชื่อที่จะโชว์บนแถบ wipe ตอนกดไปแต่ละหน้า
     var PAGE_LABELS = {
         'index': 'Home',
@@ -19,15 +24,101 @@
         'skills': 'Skills',
         'gallery': 'Gallery',
         'contact': 'Contact',
-        'other': 'More'
+        'other': 'Other'
     };
 
-    // ถ้าเครื่องผู้ใช้ตั้งค่า "ลดแอนิเมชัน" ไว้ ก็ไม่ต้องทำอะไรเลย
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        return;
-    }
+    var reduceMotion = !!(window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
     var root = document.documentElement;
+
+
+    /* =====================================================
+       0) เมนูหน้าแรก (ทำงานเสมอ แม้ผู้ใช้ปิดแอนิเมชัน)
+       ===================================================== */
+    function initHome() {
+        var menu = document.querySelector('.home-menu');
+        if (!menu) return;                       // ไม่ใช่หน้าแรก
+
+        var items = Array.prototype.slice.call(menu.querySelectorAll('a'));
+        var desc = document.querySelector('.home-desc');
+        var descTitle = document.querySelector('.home-desc-title');
+        var descText = document.querySelector('.home-desc-text');
+        var index = 0;
+
+        // เลือกรายการที่ n: ไฮไลต์ + ย่อรายการที่อยู่ไกล + เปลี่ยนคำอธิบาย
+        function select(n) {
+            index = (n + items.length) % items.length;
+            items.forEach(function (a, i) {
+                var li = a.parentNode;
+                li.classList.toggle('selected', i === index);
+                li.style.setProperty('--d', Math.abs(i - index));
+            });
+            var a = items[index];
+            descTitle.textContent = a.getAttribute('data-title') || a.textContent;
+            descText.textContent = a.getAttribute('data-desc') || '';
+            if (desc && !reduceMotion) {         // ให้คำอธิบายสไลด์เข้าใหม่ทุกครั้ง
+                desc.classList.remove('flash');
+                void desc.offsetWidth;
+                desc.classList.add('flash');
+            }
+        }
+
+        items.forEach(function (a, i) {
+            a.addEventListener('mouseenter', function () { if (index !== i) select(i); });
+            a.addEventListener('focus', function () { if (index !== i) select(i); });
+        });
+
+        // คีย์บอร์ด: ↑ ↓ (หรือ W S) เลือก, Enter ยืนยัน
+        document.addEventListener('keydown', function (e) {
+            if (e.altKey || e.ctrlKey || e.metaKey) return;
+            var k = e.key;
+            if (k === 'ArrowDown' || k === 's' || k === 'S') {
+                e.preventDefault();
+                select(index + 1);
+            } else if (k === 'ArrowUp' || k === 'w' || k === 'W') {
+                e.preventDefault();
+                select(index - 1);
+            } else if (k === 'Enter' && document.activeElement !== items[index]) {
+                e.preventDefault();
+                items[index].click();
+            }
+        });
+
+        select(0);
+
+        // ภาพพื้นหลัง: ถ้าโหลดไฟล์ได้ค่อยนำมาใช้ ถ้าไม่มีไฟล์ก็ใช้ฉาก CSS ต่อไป
+        var bg = document.querySelector('.home-bg');
+        if (HOME_BG_IMAGE && bg) {
+            var probe = new Image();
+            probe.onload = function () {
+                bg.style.backgroundImage = 'url("' + HOME_BG_IMAGE + '")';
+                document.body.classList.add('has-art');
+            };
+            probe.src = HOME_BG_IMAGE;
+        }
+
+        // ฟองอากาศลอยขึ้น
+        var box = document.querySelector('.home-bubbles');
+        if (box && !reduceMotion) {
+            for (var b = 0; b < 16; b++) {
+                var s = document.createElement('span');
+                var size = 6 + Math.random() * 18;
+                s.className = 'bubble';
+                s.style.width = s.style.height = size + 'px';
+                s.style.left = (Math.random() * 100) + '%';
+                s.style.setProperty('--sway', (Math.random() * 60 - 30) + 'px');
+                s.style.animationDuration = (9 + Math.random() * 10) + 's';
+                s.style.animationDelay = (-Math.random() * 18) + 's';
+                box.appendChild(s);
+            }
+        }
+    }
+
+    initHome();
+
+    // ถ้าเครื่องผู้ใช้ตั้งค่า "ลดแอนิเมชัน" ไว้ ส่วนที่เหลือไม่ต้องทำงาน
+    if (reduceMotion) return;
 
 
     /* =====================================================

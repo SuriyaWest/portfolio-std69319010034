@@ -7,91 +7,60 @@
     <title>Portfolio Demo - Home</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
 
-<body>
+<body class="home">
 
-    <!-- ================= HEADER ================= -->
-    <header>
-        <h1>Suriya</h1>
-        <p>Web Developer | UI Designer | Student</p>
-        <p><i class="fas fa-info-circle"></i> อย่าลืมกด ctrl + f5 เพื่อโหลด css นะครับ</p>
-    </header>
+    <!-- ================= พื้นหลังใต้น้ำ =================
+         ถ้าวางไฟล์ภาพไว้ที่ images/home-bg.gif (ตั้งค่าใน js/script.js)
+         ภาพจะมาแสดงแทนฉากที่วาดด้วย CSS อัตโนมัติ -->
+    <div class="home-bg" aria-hidden="true">
+        <span class="home-ripple"></span>
+        <span class="home-light l1"></span>
+        <span class="home-light l2"></span>
+        <span class="home-light l3"></span>
+    </div>
+    <div class="home-bubbles" aria-hidden="true"></div>
+    <div class="home-wordmark" aria-hidden="true">Suriya</div>
 
-    <!-- ================= NAVIGATION ================= -->
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="skills.html">Skills</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="other.html">อื่นๆ</a></li>
-        </ul>
-    </nav>
+    <div class="home-scene">
 
-    <!-- ================= MAIN ================= -->
-    <main>
-        <!-- Section 1: Hero Welcome -->
-        <section class="hero-section">
-            <h2>Welcome to My Portfolio</h2>
-            <p>
-                ยินดีต้อนรับเข้าสู่เว็บไซต์พอร์ตโฟลิโอของผม โครงการนี้พัฒนาขึ้นในรายวิชาการพัฒนาเว็บไซต์ (Website Development) 
-                แสดงผลงาน ทักษะความสามารถ และช่องทางการติดต่อครับ
-            </p>
-        </section>
+        <!-- การ์ดชื่อ (มุมซ้ายบน) -->
+        <div class="home-card">
+            <h1>Suriya</h1>
+            <p>Web Developer | UI Designer | Student</p>
+        </div>
 
-        <!-- Section 2: Quick Links (Cards) -->
-        <section class="quick-links-section">
-            <h3>Quick Links</h3>
-            <div class="quick-links-grid">
-                <a href="about.html" class="quick-card">
-                    <span class="card-icon">👤</span>
-                    <h4>About Me</h4>
-                    <p>ประวัติและข้อมูลส่วนตัว</p>
-                </a>
-                <a href="skills.html" class="quick-card">
-                    <span class="card-icon">⚡</span>
-                    <h4>My Skills</h4>
-                    <p>ทักษะการเขียนโค้ดและดีไซน์</p>
-                </a>
-                <a href="gallery.html" class="quick-card">
-                    <span class="card-icon">🖼️</span>
-                    <h4>Gallery</h4>
-                    <p>รวบรวมผลงานและกิจกรรม</p>
-                </a>
-                <a href="contact.html" class="quick-card">
-                    <span class="card-icon">📬</span>
-                    <h4>Contact Me</h4>
-                    <p>ส่งข้อความติดต่อผมได้ที่นี่</p>
-                </a>
+        <!-- ================= เมนูหลัก ================= -->
+        <div class="home-menu" role="navigation" aria-label="เมนูหลัก">
+            <ul class="home-list">
+                <li style="--n:0"><a href="about.html"   data-title="About"   data-desc="ประวัติและข้อมูลส่วนตัว">About</a></li>
+                <li style="--n:1"><a href="skills.html"  data-title="Skills"  data-desc="ทักษะการเขียนโค้ดและดีไซน์">Skills</a></li>
+                <li style="--n:2"><a href="gallery.html" data-title="Gallery" data-desc="รวบรวมผลงานและกิจกรรม">Gallery</a></li>
+                <li style="--n:3"><a href="contact.html" data-title="Contact" data-desc="ส่งข้อความติดต่อผมได้ที่นี่">Contact</a></li>
+                <li style="--n:4"><a href="other.html"   data-title="Other"   data-desc="ลิงก์ลัดและแหล่งข้อมูลอื่นๆ">Other</a></li>
+            </ul>
+        </div>
+
+        <!-- คำอธิบายเมนูที่เลือก + ปุ่มลัด (มุมขวาล่าง) -->
+        <div class="home-hint">
+            <div class="home-desc">
+                <strong class="home-desc-title">About</strong>
+                <span class="home-desc-text">ประวัติและข้อมูลส่วนตัว</span>
             </div>
-        </section>
-
-        <!-- Section 3: Featured Video (Deftones - Risk) -->
-        <section class="video-card-section">
-            <div class="video-header">
-                <h3>🎬 Featured Music / Video</h3>
-                <p>วิดีโอแนะนำที่ชื่นชอบ</p>
+            <div class="home-keys">
+                <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> Select</span>
+                <span><kbd>Enter</kbd> Confirm</span>
             </div>
-            
-            <div class="video-wrapper">
-                <iframe 
-                    src="https://www.youtube.com/embed/ifN91YvHj7g?list=RDifN91YvHj7g" 
-                    title="Deftones - Risk (Official Visualizer)" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </section>
-    </main>
+        </div>
 
-    <!-- ================= FOOTER ================= -->
-    <footer>
-        <p>© 2026 Portfolio Demo</p>
-    </footer>
+        <!-- เพลงที่ชอบ (มุมซ้ายล่าง) -->
+        <div class="home-music">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0lqHgjNrXmtFroWDqwV1iQ?utm_source=generator&si=e7bf3ad4c94c4473" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
+    </div>
 
     <script src="js/script.js"></script>
 

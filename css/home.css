@@ -1,0 +1,336 @@
+/* =====================================================
+   css/home.css  -  หน้าแรกแบบเมนูเกม (ใช้เฉพาะ index.html)
+   ใช้ตัวแปรสีจาก style.css (--cyan, --ice, --abyss ...)
+   ===================================================== */
+
+body.home {
+    background: var(--abyss);
+    overflow-x: hidden;
+}
+
+
+/* ================= พื้นหลังใต้น้ำ ================= */
+.home-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background-color: #0a3fbf;
+    background-image:
+        radial-gradient(ellipse at 78% 6%, rgba(120, 220, 255, .55), transparent 45%),
+        linear-gradient(100deg, #eaf8ff 0%, #8fd8ff 16%, #1e6dff 42%, #0a3fbf 72%, #061a6a 100%);
+    background-size: cover;
+    background-position: center;
+}
+
+/* ระลอกคลื่นผิวน้ำด้านบน */
+.home-ripple {
+    position: absolute;
+    left: 30%;
+    right: -10%;
+    top: -8%;
+    height: 42%;
+    background: repeating-radial-gradient(ellipse at 70% 0%,
+        transparent 0 22px, rgba(255, 255, 255, .22) 22px 26px, transparent 26px 48px);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+    animation: home-ripple 7s ease-in-out infinite alternate;
+}
+@keyframes home-ripple {
+    from { transform: translateX(0) scale(1); }
+    to   { transform: translateX(-4%) scale(1.08); }
+}
+
+/* แสงลอดผ่านน้ำ */
+.home-light {
+    position: absolute;
+    top: -10%;
+    width: 14vw;
+    height: 130%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .3), transparent 75%);
+    filter: blur(10px);
+    transform: skewX(-24deg);
+    opacity: .5;
+    animation: home-sway 8s ease-in-out infinite alternate;
+}
+.home-light.l1 { left: 48%; }
+.home-light.l2 { left: 64%; width: 8vw;  animation-delay: -3s; }
+.home-light.l3 { left: 80%; width: 18vw; animation-delay: -5s; }
+@keyframes home-sway {
+    from { transform: skewX(-24deg) translateX(-3vw); opacity: .25; }
+    to   { transform: skewX(-24deg) translateX(3vw);  opacity: .6; }
+}
+
+/* ฟองอากาศ (JS สร้างให้) */
+.home-bubbles {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+.home-bubbles .bubble {
+    position: absolute;
+    bottom: -40px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, .55);
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .55), rgba(255, 255, 255, .05) 60%);
+    animation: home-bubble linear infinite;
+    will-change: transform;
+}
+@keyframes home-bubble {
+    0%   { transform: translate(0, 0); opacity: 0; }
+    10%  { opacity: .9; }
+    50%  { transform: translate(var(--sway), -55vh); }
+    100% { transform: translate(0, -115vh); opacity: 0; }
+}
+
+/* ตัวหนังสือชื่อใหญ่จางๆ ริมซ้าย */
+.home-wordmark {
+    position: fixed;
+    left: -1vw;
+    top: 50%;
+    z-index: 1;
+    writing-mode: vertical-rl;
+    transform: translateY(-50%) rotate(180deg);
+    font-size: min(22vh, 18vw);
+    font-weight: 800;
+    font-style: italic;
+    line-height: 1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: rgba(4, 18, 70, .16);
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ถ้ามีภาพพื้นหลังจริง ซ่อนเลเยอร์ที่วาดด้วย CSS */
+body.has-art .home-ripple,
+body.has-art .home-light,
+body.has-art .home-wordmark { display: none; }
+
+
+/* ================= ฉากหลัก ================= */
+.home-scene {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* การ์ดชื่อ (มุมซ้ายบน) */
+.home-card {
+    position: absolute;
+    top: 3.5vh;
+    left: 3vw;
+    padding: 10px 30px 10px 18px;
+    background: #fff;
+    color: #06133d;
+    border-left: 5px solid var(--blue);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+    animation: home-fade-down .6s .5s cubic-bezier(.2, .9, .2, 1) backwards;
+}
+.home-card h1 {
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-style: italic;
+    line-height: 1.1;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+.home-card p {
+    color: #35508f;
+    font-size: .8rem;
+    line-height: 1.3;
+    letter-spacing: .5px;
+}
+
+
+/* ================= เมนูหลัก ================= */
+.home-menu {
+    --base-size: clamp(2.2rem, 6.4vw, 5rem);
+    position: absolute;
+    right: 7vw;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.home-list {
+    list-style: none;
+    transform: rotate(-9deg);
+    transform-origin: 20% 50%;
+}
+
+.home-list li {
+    --d: 0;                                      /* ระยะห่างจากรายการที่เลือก (JS ใส่ให้) */
+    margin-left: calc(var(--n) * 2.4vw);          /* เยื้องเป็นขั้นบันได */
+    font-size: calc(var(--base-size) * (1 - var(--d) * .08));
+    line-height: 1.15;
+    transition: font-size .2s ease;
+    animation: home-menu-in .6s cubic-bezier(.2, .9, .2, 1) backwards;
+    animation-delay: calc(.7s + var(--n) * .09s);
+}
+@keyframes home-menu-in {
+    from { opacity: 0; transform: translateX(90px); }
+}
+
+.home-list a {
+    position: relative;
+    z-index: 0;
+    display: inline-block;
+    padding: .02em .35em;
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ice);
+    text-shadow: .05em .05em 0 #0a2a9a, 0 0 .3em rgba(61, 242, 255, .4);
+    transform: skewX(-10deg);
+    transition: color .15s;
+    outline: none;
+}
+
+/* แถบขาวที่ปัดออกมาหลังรายการที่เลือก */
+.home-list a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--ice);
+    clip-path: polygon(0 0, 100% 0, calc(100% - .2em) 100%, 0 100%);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform .22s cubic-bezier(.2, .9, .2, 1);
+}
+
+/* ลูกศรเพชรสีฟ้าหน้ารายการที่เลือก */
+.home-list a::after {
+    content: "";
+    position: absolute;
+    left: -.45em;
+    top: 50%;
+    width: .26em;
+    height: .26em;
+    background: var(--cyan);
+    box-shadow: 0 0 .4em var(--cyan);
+    transform: translateY(-50%) rotate(45deg) scale(0);
+    transition: transform .2s;
+}
+
+.home-list li.selected a { color: #061a6a; text-shadow: none; }
+.home-list li.selected a::before { transform: scaleX(1); }
+.home-list li.selected a::after { transform: translateY(-50%) rotate(45deg) scale(1); }
+
+
+/* ================= คำอธิบาย + ปุ่มลัด (มุมขวาล่าง) ================= */
+.home-hint {
+    position: fixed;
+    right: 3vw;
+    bottom: 3.5vh;
+    z-index: 3;
+    max-width: min(360px, 60vw);
+    text-align: right;
+    animation: home-fade-up .6s 1s cubic-bezier(.2, .9, .2, 1) backwards;
+}
+
+.home-desc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid rgba(232, 246, 255, .6);
+}
+.home-desc.flash { animation: home-desc-in .25s ease-out; }
+@keyframes home-desc-in {
+    from { opacity: 0; transform: translateX(14px); }
+}
+
+.home-desc-title {
+    font-size: 1.4rem;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 2px 2px 0 #0a2a9a;
+}
+.home-desc-text {
+    color: #d6efff;
+    font-size: .95rem;
+}
+
+.home-keys {
+    display: flex;
+    justify-content: flex-end;
+    gap: 18px;
+    font-size: .85rem;
+    color: var(--ice);
+}
+.home-keys kbd {
+    display: inline-block;
+    min-width: 1.7em;
+    margin-right: .3em;
+    padding: 0 .45em;
+    font: 700 .8rem 'Kanit', sans-serif;
+    text-align: center;
+    color: #061a6a;
+    background: var(--ice);
+    border-radius: 4px;
+}
+
+
+/* ================= เพลง (มุมซ้ายล่าง) ================= */
+.home-music {
+    position: fixed;
+    left: 3vw;
+    bottom: 3.5vh;
+    z-index: 3;
+    width: min(320px, 44vw);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .35));
+    animation: home-fade-up .6s 1.1s cubic-bezier(.2, .9, .2, 1) backwards;
+}
+.home-music iframe {
+    display: block;
+    width: 100%;
+    height: 152px;
+    margin-top: 0;
+    border-radius: 12px;
+}
+
+
+/* ================= ค่าเริ่มต้นแอนิเมชันเข้าฉาก ================= */
+@keyframes home-fade-down {
+    from { opacity: 0; transform: translateY(-24px); }
+}
+@keyframes home-fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+}
+
+
+/* ================= มือถือ ================= */
+@media (max-width: 768px) {
+    .home-menu {
+        --base-size: clamp(2rem, 11vw, 3.4rem);
+        right: 4vw;
+        top: 46%;
+    }
+    .home-list li { margin-left: calc(var(--n) * 2vw); }
+
+    .home-music {
+        left: 3vw;
+        right: 3vw;
+        width: auto;
+    }
+    .home-hint {
+        bottom: calc(3.5vh + 168px);
+        max-width: 70vw;
+    }
+}
+
+
+/* ================= ปิดแอนิเมชัน (Reduce motion) ================= */
+@media (prefers-reduced-motion: reduce) {
+    .home-bubbles,
+    .home-ripple,
+    .home-light { display: none; }
+}
